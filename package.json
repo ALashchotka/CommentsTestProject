@@ -8,8 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "prepare-workspace": "rm -rf ./node_modules && rm -rf ./ios/Pods && bundle install && yarn",
-    "postinstall": "cd ios && pod install && cd .."
+    "postinstall": "rm -rf ./ios/Pods && bundle install && cd ios && pod install && cd ..",
+    "clean-install": "rm -rf ./ios/.xcode.env.local && yarn install"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.18",
