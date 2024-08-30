@@ -4,12 +4,11 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "rm -rf ./ios/.xcode.env.local && react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "postinstall": "rm -rf ./ios/Pods && bundle install && cd ios && pod install && cd ..",
-    "clean-install": "rm -rf ./ios/.xcode.env.local && yarn install"
+    "postinstall": "rm -rf ./ios/Pods && bundle install && cd ios && pod install && cd .."
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.18",
