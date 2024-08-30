@@ -21,9 +21,8 @@ export default StyleSheet.create({
   },
 
   titleContainer: {
-    position: 'absolute',
-    top: '10%',
     marginHorizontal: 16,
+    marginBottom: 32,
   },
 
   title: {
