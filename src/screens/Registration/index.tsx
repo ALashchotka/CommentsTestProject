@@ -1,22 +1,34 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+import * as UsersDB from '../../db/users';
+import { User } from '../../db/users/types';
 
 import Input from './Input';
 import styles from './styles';
 
 export default function Registration(): React.JSX.Element {
-  const [email, setEmail] = useState<string>('');
-  const [userName, setUserName] = useState<string>('');
+  const [email, setEmail] = useState<User['email']>('');
+  const [username, setUsername] = useState<User['username']>('');
 
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const onSubmit = (): void => {
-    setLoading(true);
+  // TODO: add validation and error handling
+  const onSubmit = async (): Promise<void> => {
+    try {
+      setLoading(true);
 
-    setTimeout(() => {
+      const response = await UsersDB.createUser(email, username);
+
+      Alert.alert('Success', JSON.stringify(response));
+
       setLoading(false);
-    }, 2000);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -48,8 +60,8 @@ export default function Registration(): React.JSX.Element {
 
           <Input
             placeholder="Nickname"
-            onChangeText={setUserName}
-            value={userName}
+            onChangeText={setUsername}
+            value={username}
           />
 
           <TouchableOpacity
