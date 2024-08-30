@@ -11,8 +11,14 @@ export default function Navigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Registration" component={Registration} />
-        <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen
+          name="Registration"
+          component={Registration}
+        />
+        <Stack.Screen
+          name="Main"
+          component={Main}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
