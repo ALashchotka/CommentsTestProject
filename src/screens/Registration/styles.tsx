@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { PRIMARY_COLOR } from '../../constants/styles';
+import { scale } from '../../utils/scaling';
 
 export default StyleSheet.create({
   container: {
@@ -21,42 +22,43 @@ export default StyleSheet.create({
   },
 
   titleContainer: {
-    marginHorizontal: 16,
-    marginBottom: 32,
+    marginHorizontal: scale(16),
+    marginBottom: scale(32),
   },
 
   title: {
     color: '#FFFFFF',
-    fontSize: 20,
+    fontSize: scale(20),
     fontWeight: '600',
   },
   subtitle: {
     color: '#FFFFFF',
-    fontSize: 14,
+    fontSize: scale(14),
     fontWeight: '300',
-    marginTop: 16,
+    marginTop: scale(16),
   },
 
   contentContainer: {
     width: '90%',
-    padding: 16,
-    borderRadius: 16,
+    paddingHorizontal: scale(16),
+    paddingVertical: scale(8),
+    borderRadius: scale(16),
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   button: {
-    marginTop: 16,
-    borderRadius: 8,
-    padding: 16,
+    marginVertical: scale(8),
+    borderRadius: scale(8),
+    padding: scale(16),
     backgroundColor: PRIMARY_COLOR,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonText: {
-    fontSize: 14,
+    fontSize: scale(14),
     color: '#FFFFFF',
     fontWeight: '500',
   },
