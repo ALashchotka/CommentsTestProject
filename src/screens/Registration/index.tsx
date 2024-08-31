@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, Alert, Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, Image, Keyboard, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import validator from 'validator';
 
@@ -20,15 +20,19 @@ export default function Registration({ navigation }: RegistrationScreenProps): R
   const [errorField, setErrorField] = useState<'email' | 'username' | null>(null);
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  // TODO: add error handling
   const onSubmit = async (): Promise<void> => {
     try {
+      Keyboard.dismiss();
+
       setLoading(true);
 
       if (!validator.isEmail(email)) {
         setErrorField('email');
 
-        Alert.alert('Email Error');
+        Alert.alert(
+          'Email Validation Error',
+          'Invalid email. Please check the entered address for correctness and try again.',
+        );
 
         return;
       }
@@ -36,7 +40,11 @@ export default function Registration({ navigation }: RegistrationScreenProps): R
       if (!username || !USERNAME_REGEXP.test(username)) {
         setErrorField('username');
 
-        Alert.alert('Username Error');
+        Alert.alert(
+          'Username Validation Error',
+          'Invalid username. Please ensure the username contains ' +
+            'only letters (Latin alphabet) and numbers, and try again.',
+        );
 
         return;
       }
@@ -47,6 +55,13 @@ export default function Registration({ navigation }: RegistrationScreenProps): R
 
       setLoading(false);
     } catch (error) {
+      Alert.alert(
+        'Conflict Between Email and Username',
+        'The provided email is already registered with a different username, ' +
+          'or the username is already associated with another email. ' +
+          'Please check your information and try again',
+      );
+
       console.error(error);
     } finally {
       setLoading(false);
@@ -66,6 +81,7 @@ export default function Registration({ navigation }: RegistrationScreenProps): R
         style={styles.keyboardAwareContainer}
         contentContainerStyle={styles.keyboardAwareContent}
         extraHeight={100}
+        keyboardShouldPersistTaps="always"
       >
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Sign Up</Text>

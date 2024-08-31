@@ -16,4 +16,7 @@ export default StyleSheet.create({
   inputFocused: {
     borderColor: PRIMARY_COLOR,
   },
+  inputError: {
+    borderColor: '#FF0000',
+  },
 });
