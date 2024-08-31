@@ -2830,6 +2830,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/validator@npm:^13.12.1":
+  version: 13.12.1
+  resolution: "@types/validator@npm:13.12.1"
+  checksum: b840f6c577fca5286436932f1897a66f6fb102603a64cb084964ea33bbc562781c2d04ee389bc74905735c77aca9e3df7a6414759691e9f518f70702bbfcd982
+  languageName: node
+  linkType: hard
+
 "@types/yargs-parser@npm:*":
   version: 21.0.3
   resolution: "@types/yargs-parser@npm:21.0.3"
@@ -3120,6 +3127,7 @@ __metadata:
     "@types/react": ^18.3.4
     "@types/react-native-sqlite-storage": ^6.0.5
     "@types/react-test-renderer": ^18.3.0
+    "@types/validator": ^13.12.1
     babel-jest: ^29.6.3
     eslint: ^8.19.0
     jest: ^29.6.3
@@ -3133,6 +3141,7 @@ __metadata:
     react-native-sqlite-storage: ^6.0.1
     react-test-renderer: 18.3.1
     typescript: ^5.5.4
+    validator: ^13.12.0
   languageName: unknown
   linkType: soft
 
@@ -9632,6 +9641,13 @@ __metadata:
     "@types/istanbul-lib-coverage": ^2.0.1
     convert-source-map: ^2.0.0
   checksum: ded42cd535d92b7fd09a71c4c67fb067487ef5551cc227bfbf2a1f159a842e4e4acddaef20b955789b8d3b455b9779d036853f4a27ce15007f6364a4d30317ae
+  languageName: node
+  linkType: hard
+
+"validator@npm:^13.12.0":
+  version: 13.12.0
+  resolution: "validator@npm:13.12.0"
+  checksum: fb8f070724770b1449ea1a968605823fdb112dbd10507b2802f8841cda3e7b5c376c40f18c84e6a7b59de320a06177e471554101a85f1fa8a70bac1a84e48adf
   languageName: node
   linkType: hard
 
