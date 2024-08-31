@@ -3,22 +3,24 @@ import { ActivityIndicator, Alert, Image, StatusBar, Text, TouchableOpacity, Vie
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import validator from 'validator';
 
-import * as UsersDB from '../../db/users';
 import { User } from '../../db/users/types';
+import { MAIN_SCREEN_NAME, RegistrationScreenProps } from '../../navigation/routes';
 
 import Input from './Input';
+
+import { createUser } from './helpers';
 import styles from './styles';
 
 const USERNAME_REGEXP: RegExp = /^[A-Za-z0-9]+$/;
 
-export default function Registration(): React.JSX.Element {
+export default function Registration({ navigation }: RegistrationScreenProps): React.JSX.Element {
   const [email, setEmail] = useState<User['email']>('');
   const [username, setUsername] = useState<User['username']>('');
 
   const [errorField, setErrorField] = useState<'email' | 'username' | null>(null);
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  // TODO: add validation and error handling
+  // TODO: add error handling
   const onSubmit = async (): Promise<void> => {
     try {
       setLoading(true);
@@ -26,18 +28,22 @@ export default function Registration(): React.JSX.Element {
       if (!validator.isEmail(email)) {
         setErrorField('email');
 
+        Alert.alert('Email Error');
+
         return;
       }
 
-      if (!username || USERNAME_REGEXP.test(username)) {
+      if (!username || !USERNAME_REGEXP.test(username)) {
         setErrorField('username');
 
+        Alert.alert('Username Error');
+
         return;
       }
 
-      const response = await UsersDB.createUser(email, username);
+      const userData = await createUser(email, username);
 
-      Alert.alert('Success', JSON.stringify(response));
+      navigation.navigate(MAIN_SCREEN_NAME, { userData });
 
       setLoading(false);
     } catch (error) {
@@ -77,7 +83,7 @@ export default function Registration(): React.JSX.Element {
 
           <Input
             isError={errorField === 'username'}
-            placeholder="Nickname"
+            placeholder="Username"
             onChangeText={setUsername}
             value={username}
             type="username"
