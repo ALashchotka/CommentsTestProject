@@ -81,7 +81,7 @@ export default function Registration({ navigation }: RegistrationScreenProps): R
         style={styles.keyboardAwareContainer}
         contentContainerStyle={styles.keyboardAwareContent}
         extraHeight={100}
-        keyboardShouldPersistTaps="always"
+        keyboardShouldPersistTaps="handled"
       >
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Sign Up</Text>
