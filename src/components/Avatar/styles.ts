@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { scale } from '../../utils/scaling';
 
-export const AVATAR_DIMENSION = scale(50);
+export const AVATAR_DIMENSION = scale(40);
 
 export default StyleSheet.create({
   container: {
