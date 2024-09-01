@@ -22,8 +22,8 @@ export default function Header(): React.JSX.Element {
       <Text style={styles.title}>Comments list</Text>
       <TouchableOpacity
         style={styles.iconContainer}
-        hitSlop={HIT_SLOP}
         onPress={onLogout}
+        hitSlop={HIT_SLOP}
       >
         <Ionicons
           style={styles.icon}

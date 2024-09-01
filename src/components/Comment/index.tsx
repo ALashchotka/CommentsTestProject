@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import moment from 'moment';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import { HIT_SLOP } from '../../constants/styles';
 import { CommentParsed } from '../../db/comments/types';
 
 import Avatar from '../Avatar';
@@ -43,6 +44,7 @@ export default function Comment({
               activeOpacity={0.6}
               style={styles.button}
               onPress={() => onReply(item)}
+              hitSlop={HIT_SLOP}
             >
               <Ionicons
                 style={styles.buttonIcon}
@@ -60,6 +62,7 @@ export default function Comment({
                 activeOpacity={0.6}
                 style={styles.viewRepliesContainer}
                 onPress={() => {}}
+                hitSlop={HIT_SLOP}
               >
                 <View style={styles.viewRepliesLine} />
                 <Text style={styles.viewRepliesText}>View {item.repliesCount - item.replies.length} replies</Text>

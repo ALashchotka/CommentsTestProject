@@ -3,6 +3,7 @@ import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { Avatar } from '../../../components';
+import { HIT_SLOP } from '../../../constants/styles';
 import { CommentParsed } from '../../../db/comments/types';
 import { scale } from '../../../utils/scaling';
 
@@ -56,6 +57,7 @@ export default function Input({
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={removeCommentForReply}
+            hitSlop={HIT_SLOP}
           >
             <Ionicons
               style={styles.replyCloseIcon}
@@ -88,6 +90,7 @@ export default function Input({
           activeOpacity={0.6}
           style={styles.button}
           onPress={onPress}
+          hitSlop={HIT_SLOP}
           disabled={isLoading}
         >
           <Ionicons
