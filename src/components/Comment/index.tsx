@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import moment from 'moment';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { CommentParsed } from '../../db/comments/types';
 
@@ -43,6 +44,10 @@ export default function Comment({
               style={styles.button}
               onPress={() => onReply(item)}
             >
+              <Ionicons
+                style={styles.buttonIcon}
+                name="arrow-redo"
+              />
               <Text style={styles.buttonText}>Reply</Text>
             </TouchableOpacity>
           </View>

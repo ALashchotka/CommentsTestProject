@@ -7,7 +7,6 @@ import { AVATAR_DIMENSION } from '../Avatar/styles';
 
 export default StyleSheet.create({
   container: {
-    width: '100%',
     marginVertical: scale(4),
     marginHorizontal: scale(16),
   },
@@ -27,6 +26,7 @@ export default StyleSheet.create({
   },
 
   headerContent: {
+    flex: 1,
     marginTop: (AVATAR_DIMENSION - scale(20) - scale(20)) / 2,
     marginLeft: scale(16),
   },
@@ -48,6 +48,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: AVATAR_DIMENSION + scale(16),
+    marginTop: scale(4),
   },
 
   date: {
@@ -58,13 +59,18 @@ export default StyleSheet.create({
 
   button: {
     marginLeft: scale(8),
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonIcon: {
+    color: PRIMARY_COLOR,
   },
   buttonText: {
     color: PRIMARY_COLOR,
     fontSize: scale(14),
     fontWeight: '600',
+    marginLeft: scale(2),
   },
 
   repliesContainer: {
@@ -80,12 +86,12 @@ export default StyleSheet.create({
   viewRepliesLine: {
     width: 40,
     height: 1,
-    backgroundColor: '#333333',
+    backgroundColor: '#AAAAAA',
     marginRight: scale(8),
   },
   viewRepliesText: {
-    color: '#333333',
-    fontSize: 14,
+    color: '#AAAAAA',
+    fontSize: scale(14),
     fontWeight: '400',
   },
 });
