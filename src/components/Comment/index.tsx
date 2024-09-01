@@ -3,6 +3,8 @@ import { Text, TouchableOpacity, View } from 'react-native';
 
 import { CommentParsed } from '../../db/comments/types';
 
+import Avatar from './Avatar';
+
 import styles from './styles';
 
 export default function Comment({
@@ -21,6 +23,10 @@ export default function Comment({
         key={`Comment_${item.id}`}
       >
         <View style={styles.content}>
+          <Avatar
+            username={data.username}
+            userId={data.userId}
+          />
           <Text style={styles.title}>{item.username}</Text>
           <Text style={styles.text}>{item.text}</Text>
 
