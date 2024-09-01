@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native';
 
-const AVATAR_DIMENSION = 50;
+import { scale } from '../../utils/scaling';
+
+export const AVATAR_DIMENSION = scale(50);
 
 export default StyleSheet.create({
   container: {
@@ -13,6 +15,6 @@ export default StyleSheet.create({
   username: {
     color: '#FFFFFF',
     fontFamily: '500',
-    fontSize: 20,
+    fontSize: scale(20),
   },
 });

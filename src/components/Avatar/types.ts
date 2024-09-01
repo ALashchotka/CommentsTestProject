@@ -1,4 +1,4 @@
-import { CommentParsed } from '../../../db/comments/types';
+import { CommentParsed } from '../../db/comments/types';
 
 export interface Props {
   username: CommentParsed['username'];

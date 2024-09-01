@@ -1,3 +1,4 @@
+import Avatar from './Avatar';
 import Comment from './Comment';
 
-export { Comment };
+export { Avatar, Comment };

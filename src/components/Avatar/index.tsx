@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { stringToColor } from '../../../utils/colors';
+import { stringToColor } from '../../utils/colors';
 
 import styles from './styles';
 import { Props } from './types';
