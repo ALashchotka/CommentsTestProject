@@ -11,7 +11,6 @@ import Input from './Input';
 
 import styles from './styles';
 import useComments from './useComments';
-import { scale } from '../../utils/scaling';
 
 export default function Main({ route }: MainScreenProps) {
   const { comments, setComments } = useComments();
@@ -90,7 +89,6 @@ export default function Main({ route }: MainScreenProps) {
       <KeyboardAvoidingView
         style={styles.content}
         behavior="padding"
-        keyboardVerticalOffset={scale(72)}
       >
         <ScrollView
           ref={scrollViewRef}
