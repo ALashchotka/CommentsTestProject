@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { KeyboardAvoidingView, ScrollView, StatusBar, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Keyboard, KeyboardAvoidingView, NativeScrollEvent, ScrollView, StatusBar, View } from 'react-native';
 
 import { Comment } from '../../components';
 import { createComment } from '../../db/comments';
@@ -10,13 +10,23 @@ import Input from './Input';
 
 import styles from './styles';
 import useComments from './useComments';
+import { scale } from '../../utils/scaling';
 
 export default function Main({ route }: MainScreenProps) {
   const { comments, setComments } = useComments();
 
   const userData = route.params.userData;
 
+  const currentScrollPosition = useRef<number>(0);
+  const scrollViewRef = useRef<ScrollView>(null);
+
   const [commentForReply, setCommentForReply] = useState<CommentParsed>();
+
+  const removeCommentForReply = () => setCommentForReply(undefined);
+
+  const onScrollEnd = ({ nativeEvent }: { nativeEvent: NativeScrollEvent }) => {
+    currentScrollPosition.current = nativeEvent.contentOffset.y;
+  };
 
   const onReply = (comment: CommentParsed) => {
     setCommentForReply(comment);
@@ -37,7 +47,7 @@ export default function Main({ route }: MainScreenProps) {
       }
     });
 
-    setCommentForReply(undefined);
+    removeCommentForReply();
   };
 
   const renderComment = (item: CommentParsed) => (
@@ -48,6 +58,28 @@ export default function Main({ route }: MainScreenProps) {
     />
   );
 
+  useEffect(() => {
+    const keyboardWillShow = ({ endCoordinates: { height } }: { endCoordinates: { height: number } }) => {
+      if (scrollViewRef?.current) {
+        scrollViewRef.current.scrollTo({ x: 0, y: currentScrollPosition.current + height, animated: true });
+      }
+    };
+
+    const keyboardWillHide = ({ endCoordinates: { height } }: { endCoordinates: { height: number } }) => {
+      if (scrollViewRef?.current) {
+        scrollViewRef.current.scrollTo({ x: 0, y: currentScrollPosition.current - height, animated: true });
+      }
+    };
+
+    const keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', keyboardWillShow);
+    const keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', keyboardWillHide);
+
+    return () => {
+      keyboardWillShowListener.remove();
+      keyboardWillHideListener.remove();
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -55,11 +87,24 @@ export default function Main({ route }: MainScreenProps) {
       <KeyboardAvoidingView
         style={styles.content}
         behavior="padding"
+        keyboardVerticalOffset={scale(72)}
       >
-        <ScrollView contentContainerStyle={styles.contentContainer}>{comments.map(renderComment)}</ScrollView>
+        <ScrollView
+          ref={scrollViewRef}
+          contentContainerStyle={styles.contentContainer}
+          keyboardShouldPersistTaps="handled"
+          scrollEventThrottle={16}
+          onScrollEndDrag={onScrollEnd}
+          onMomentumScrollEnd={onScrollEnd}
+          scrollIndicatorInsets={{ right: 1 }}
+        >
+          {comments.map(renderComment)}
+        </ScrollView>
+
         <Input
           commentForReply={commentForReply}
           onSend={onSend}
+          removeCommentForReply={removeCommentForReply}
           userData={userData}
         />
       </KeyboardAvoidingView>

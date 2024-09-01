@@ -5,10 +5,31 @@ import { scale } from '../../../utils/scaling';
 
 export default StyleSheet.create({
   container: {
-    padding: scale(16),
+    paddingHorizontal: scale(16),
+    paddingVertical: scale(12),
     width: '100%',
-    borderColor: '#AAAAAA',
+    borderColor: '#EAEAEA',
     borderTopWidth: 1,
+  },
+
+  replyContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: scale(40),
+    marginBottom: scale(8),
+    paddingLeft: scale(8),
+    borderColor: PRIMARY_COLOR,
+    borderLeftWidth: 2,
+  },
+  replyText: {
+    flex: 1,
+    color: '#666666',
+    fontSize: scale(14),
+    fontWeight: '400',
+  },
+  replyCloseIcon: {
+    color: PRIMARY_COLOR,
   },
 
   content: {
@@ -19,13 +40,17 @@ export default StyleSheet.create({
   input: {
     flex: 1,
     color: '#000000',
-    borderColor: '#AAAAAA',
-    borderRadius: scale(48),
+    fontSize: scale(14),
+    fontWeight: '400',
+    backgroundColor: '#EAEAEA',
+    borderColor: '#EAEAEA',
+    borderRadius: scale(24),
     borderWidth: 1,
     paddingVertical: scale(16),
     paddingLeft: scale(16),
     paddingRight: scale(48),
-    height: scale(48),
+    minHeight: scale(48),
+    maxHeight: scale(100),
     marginLeft: scale(16),
   },
   inputFocused: {

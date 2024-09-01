@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -9,7 +9,14 @@ import { scale } from '../../../utils/scaling';
 import styles from './styles';
 import { InputProps } from './types';
 
-export default function Input({ commentForReply, onSend, userData }: InputProps): React.JSX.Element {
+export default function Input({
+  commentForReply,
+  onSend,
+  removeCommentForReply,
+  userData,
+}: InputProps): React.JSX.Element {
+  const textInputRef = useRef<TextInput>(null);
+
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
@@ -29,9 +36,35 @@ export default function Input({ commentForReply, onSend, userData }: InputProps)
     }
   };
 
+  useEffect(() => {
+    if (commentForReply && textInputRef?.current) {
+      textInputRef.current.focus();
+    }
+  }, [commentForReply]);
+
   return (
     <View style={styles.container}>
-      {!!commentForReply && <Text>{commentForReply.text}</Text>}
+      {!!commentForReply && (
+        <View style={styles.replyContainer}>
+          <Text
+            style={styles.replyText}
+            numberOfLines={2}
+          >
+            {commentForReply.text}
+          </Text>
+
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={removeCommentForReply}
+          >
+            <Ionicons
+              style={styles.replyCloseIcon}
+              size={20}
+              name="close"
+            />
+          </TouchableOpacity>
+        </View>
+      )}
 
       <View style={styles.content}>
         <Avatar
@@ -40,13 +73,15 @@ export default function Input({ commentForReply, onSend, userData }: InputProps)
         />
 
         <TextInput
+          ref={textInputRef}
           style={[styles.input, isFocused && styles.inputFocused]}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onChangeText={setText}
           value={text}
-          placeholderTextColor="#AAAAAA"
+          placeholderTextColor="#999999"
           placeholder="Add a comment"
+          multiline
         />
 
         <TouchableOpacity
