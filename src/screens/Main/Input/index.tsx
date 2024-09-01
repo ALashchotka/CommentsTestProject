@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import { Avatar } from '../../../components';
 import { CommentParsed } from '../../../db/comments/types';
+import { scale } from '../../../utils/scaling';
 
 import styles from './styles';
 import { InputProps } from './types';
 
-export default function Input({ commentForReply, onSend }: InputProps): React.JSX.Element {
+export default function Input({ commentForReply, onSend, userData }: InputProps): React.JSX.Element {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
@@ -30,21 +33,35 @@ export default function Input({ commentForReply, onSend }: InputProps): React.JS
     <View style={styles.container}>
       {!!commentForReply && <Text>{commentForReply.text}</Text>}
 
-      <TextInput
-        style={[styles.input, isFocused && styles.inputFocused]}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        onChangeText={setText}
-        value={text}
-        placeholderTextColor="#AAAAAA"
-      />
+      <View style={styles.content}>
+        <Avatar
+          username={userData.username}
+          userId={userData.id}
+        />
 
-      <TouchableOpacity
-        onPress={onPress}
-        disabled={isLoading}
-      >
-        <Text>Send</Text>
-      </TouchableOpacity>
+        <TextInput
+          style={[styles.input, isFocused && styles.inputFocused]}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          onChangeText={setText}
+          value={text}
+          placeholderTextColor="#AAAAAA"
+          placeholder="Add a comment"
+        />
+
+        <TouchableOpacity
+          activeOpacity={0.6}
+          style={styles.button}
+          onPress={onPress}
+          disabled={isLoading}
+        >
+          <Ionicons
+            style={styles.buttonIcon}
+            name="arrow-forward-circle-outline"
+            size={scale(36)}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

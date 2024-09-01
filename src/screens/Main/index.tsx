@@ -53,13 +53,14 @@ export default function Main({ route }: MainScreenProps) {
       <StatusBar barStyle="dark-content" />
 
       <KeyboardAvoidingView
-        style={{ flex: 1, width: '100%' }}
+        style={styles.content}
         behavior="padding"
       >
-        <ScrollView>{comments.map(renderComment)}</ScrollView>
+        <ScrollView contentContainerStyle={styles.contentContainer}>{comments.map(renderComment)}</ScrollView>
         <Input
           commentForReply={commentForReply}
           onSend={onSend}
+          userData={userData}
         />
       </KeyboardAvoidingView>
     </View>
