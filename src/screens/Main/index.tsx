@@ -6,6 +6,7 @@ import { createComment } from '../../db/comments';
 import { CommentParsed } from '../../db/comments/types';
 import { MainScreenProps } from '../../navigation/routes';
 
+import Header from './Header';
 import Input from './Input';
 
 import styles from './styles';
@@ -83,6 +84,8 @@ export default function Main({ route }: MainScreenProps) {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
+
+      <Header />
 
       <KeyboardAvoidingView
         style={styles.content}

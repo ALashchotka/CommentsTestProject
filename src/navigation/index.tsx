@@ -12,11 +12,10 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function Navigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ gestureEnabled: false, headerShown: false }}>
         <Stack.Screen
           name={REGISTRATION_SCREEN_NAME}
           component={Registration}
-          options={{ headerShown: false }}
         />
         <Stack.Screen
           name={MAIN_SCREEN_NAME}
