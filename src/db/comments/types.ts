@@ -5,7 +5,7 @@ export interface CommentFromDB {
   text: string;
   date: string;
   userId: User['id'];
-  repliesCount?: number;
+  repliesCount: number;
   rootId?: CommentFromDB['id'];
   parentId?: CommentFromDB['id'];
 }

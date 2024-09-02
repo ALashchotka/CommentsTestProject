@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import { connectToDatabase } from '..';
 
 import { parseComment } from './helpers';
@@ -155,7 +157,7 @@ export const createComment = async (
     const rootId = commentForReply?.rootId || commentForReply?.id;
     const parentId = commentForReply?.id;
 
-    const values = [text, new Date().toString(), userId, rootId, parentId];
+    const values = [text, moment().format('DD.MM.YYYY HH:mm'), userId, rootId, parentId];
 
     const data = await db.executeSql(query, values);
 

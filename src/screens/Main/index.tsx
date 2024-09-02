@@ -40,6 +40,7 @@ export default function Main({ route }: MainScreenProps) {
         const rootCommentIndex = state.findIndex(item => item.id === comment.rootId);
 
         state[rootCommentIndex].replies.push(comment);
+        state[rootCommentIndex].repliesCount += 1;
 
         return state;
       } else {

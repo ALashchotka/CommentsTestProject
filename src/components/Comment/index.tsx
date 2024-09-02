@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import moment from 'moment';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { HIT_SLOP } from '../../constants/styles';
@@ -25,7 +24,7 @@ export default function Comment({
       return null;
     }
 
-    const showReplies = item.repliesCount - item.replies.length > 0;
+    const showReplies = data.repliesCount - data.replies.length > 0;
 
     return (
       <View style={styles.repliesContainer}>
@@ -39,7 +38,7 @@ export default function Comment({
             hitSlop={HIT_SLOP}
           >
             <View style={styles.viewRepliesLine} />
-            <Text style={styles.viewRepliesText}>View {item.repliesCount - item.replies.length} replies</Text>
+            <Text style={styles.viewRepliesText}>View {data.repliesCount - data.replies.length} replies</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -47,6 +46,9 @@ export default function Comment({
   };
 
   const renderComment = (item: CommentParsed, isReply: boolean) => {
+    const replyText =
+      item.parentId === item.rootId ? data.text : data.replies.find(reply => reply.id === item.parentId)?.text;
+
     return (
       <View
         style={[styles.container, isReply && styles.containerReply]}
@@ -55,17 +57,17 @@ export default function Comment({
         <View style={[styles.contentContainer, isReply && styles.contentContainerReply]}>
           <View style={styles.header}>
             <Avatar
-              username={data.username}
-              userId={data.userId}
+              username={item.username}
+              userId={item.userId}
             />
 
             <View style={styles.headerContent}>
               <Text style={styles.title}>{item.username}</Text>
 
-              {isReply && (
+              {isReply && !!replyText && (
                 <Reply
                   style={styles.replyContainer}
-                  text={data.text}
+                  text={replyText}
                 />
               )}
 
@@ -74,7 +76,7 @@ export default function Comment({
           </View>
 
           <View style={styles.footer}>
-            <Text style={styles.date}>{moment(item.date).format('DD.MM.YYYY in HH:mm')}</Text>
+            <Text style={styles.date}>{item.date}</Text>
             <TouchableOpacity
               activeOpacity={0.6}
               style={styles.button}
