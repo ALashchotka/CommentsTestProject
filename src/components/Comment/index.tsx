@@ -18,9 +18,35 @@ export default function Comment({
   data: CommentParsed;
   onReply: (comment: CommentParsed) => void;
 }): React.JSX.Element {
-  const renderComment = (item: CommentParsed, isReply: boolean) => {
+  const renderReplies = (item: CommentParsed) => {
     const hasReplies = !!item.replies?.length;
 
+    if (!hasReplies) {
+      return null;
+    }
+
+    const showReplies = item.repliesCount - item.replies.length > 0;
+
+    return (
+      <View style={styles.repliesContainer}>
+        {item.replies.map(reply => renderComment(reply, true))}
+
+        {showReplies && (
+          <TouchableOpacity
+            activeOpacity={0.6}
+            style={styles.viewRepliesContainer}
+            onPress={() => {}}
+            hitSlop={HIT_SLOP}
+          >
+            <View style={styles.viewRepliesLine} />
+            <Text style={styles.viewRepliesText}>View {item.repliesCount - item.replies.length} replies</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+    );
+  };
+
+  const renderComment = (item: CommentParsed, isReply: boolean) => {
     return (
       <View
         style={[styles.container, isReply && styles.containerReply]}
@@ -63,21 +89,7 @@ export default function Comment({
             </TouchableOpacity>
           </View>
 
-          {!!hasReplies && (
-            <View style={styles.repliesContainer}>
-              {item.replies?.map(reply => renderComment(reply, true))}
-
-              <TouchableOpacity
-                activeOpacity={0.6}
-                style={styles.viewRepliesContainer}
-                onPress={() => {}}
-                hitSlop={HIT_SLOP}
-              >
-                <View style={styles.viewRepliesLine} />
-                <Text style={styles.viewRepliesText}>View {item.repliesCount - item.replies.length} replies</Text>
-              </TouchableOpacity>
-            </View>
-          )}
+          {renderReplies(item)}
         </View>
       </View>
     );
