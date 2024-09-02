@@ -28,6 +28,25 @@ export const createTable = async (): Promise<void> => {
   }
 };
 
+export const getTotalCommentsCount = async (): Promise<number> => {
+  try {
+    const db = await connectToDatabase();
+
+    const query = `
+      SELECT COUNT(*)
+      FROM Comments
+      WHERE rootId is NULL
+    `;
+
+    const data = await db.executeSql(query);
+
+    return data[0].rows.item(0)['COUNT(*)'];
+  } catch (error) {
+    console.error(error);
+    throw Error('Failed to get comment by id from database (Comments table)');
+  }
+};
+
 export const getCommentById = async (id: CommentFromDB['id']): Promise<CommentParsed> => {
   try {
     const db = await connectToDatabase();
@@ -71,7 +90,7 @@ export const getCommentById = async (id: CommentFromDB['id']): Promise<CommentPa
   }
 };
 
-export const getComments = async (): Promise<CommentParsed[]> => {
+export const getComments = async (page: number): Promise<CommentParsed[]> => {
   try {
     const db = await connectToDatabase();
 
@@ -98,9 +117,12 @@ export const getComments = async (): Promise<CommentParsed[]> => {
         c.id
       ORDER BY
         c.id
+      LIMIT 1 OFFSET (?);
     `;
 
-    const data = await db.executeSql(query);
+    const values = [page * 1];
+
+    const data = await db.executeSql(query, values);
 
     const comments: CommentParsed[] = [];
 

@@ -1,5 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Keyboard, KeyboardAvoidingView, NativeScrollEvent, ScrollView, StatusBar, View } from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  NativeScrollEvent,
+  ScrollView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import { Comment } from '../../components';
 import { createComment } from '../../db/comments';
@@ -13,7 +22,7 @@ import styles from './styles';
 import useComments from './useComments';
 
 export default function Main({ route }: MainScreenProps) {
-  const { comments, setComments } = useComments();
+  const { comments, isNextPageExists, requestNextPage, setComments } = useComments();
 
   const userData = route.params.userData;
 
@@ -101,6 +110,12 @@ export default function Main({ route }: MainScreenProps) {
           scrollIndicatorInsets={{ right: 1 }}
         >
           {comments.map(renderComment)}
+
+          {isNextPageExists && (
+            <TouchableOpacity onPress={requestNextPage}>
+              <Text>View more comments</Text>
+            </TouchableOpacity>
+          )}
         </ScrollView>
 
         <Input
