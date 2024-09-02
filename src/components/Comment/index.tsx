@@ -7,6 +7,7 @@ import { HIT_SLOP } from '../../constants/styles';
 import { CommentParsed } from '../../db/comments/types';
 
 import Avatar from '../Avatar';
+import Reply from '../Reply';
 
 import styles from './styles';
 
@@ -34,6 +35,14 @@ export default function Comment({
 
             <View style={styles.headerContent}>
               <Text style={styles.title}>{item.username}</Text>
+
+              {isReply && (
+                <Reply
+                  style={styles.replyContainer}
+                  text={data.text}
+                />
+              )}
+
               <Text style={styles.text}>{item.text}</Text>
             </View>
           </View>

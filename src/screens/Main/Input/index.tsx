@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { TextInput, TouchableOpacity, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { Avatar } from '../../../components';
+import { Avatar, Reply } from '../../../components';
 import { HIT_SLOP } from '../../../constants/styles';
 import { CommentParsed } from '../../../db/comments/types';
 import { scale } from '../../../utils/scaling';
@@ -46,26 +46,10 @@ export default function Input({
   return (
     <View style={styles.container}>
       {!!commentForReply && (
-        <View style={styles.replyContainer}>
-          <Text
-            style={styles.replyText}
-            numberOfLines={2}
-          >
-            {commentForReply.text}
-          </Text>
-
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={removeCommentForReply}
-            hitSlop={HIT_SLOP}
-          >
-            <Ionicons
-              style={styles.replyCloseIcon}
-              size={20}
-              name="close"
-            />
-          </TouchableOpacity>
-        </View>
+        <Reply
+          text={commentForReply.text}
+          onRemove={removeCommentForReply}
+        />
       )}
 
       <View style={styles.content}>

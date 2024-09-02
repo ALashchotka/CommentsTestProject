@@ -12,26 +12,6 @@ export default StyleSheet.create({
     borderTopWidth: 1,
   },
 
-  replyContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: scale(40),
-    marginBottom: scale(8),
-    paddingLeft: scale(8),
-    borderColor: PRIMARY_COLOR,
-    borderLeftWidth: 2,
-  },
-  replyText: {
-    flex: 1,
-    color: '#666666',
-    fontSize: scale(14),
-    fontWeight: '400',
-  },
-  replyCloseIcon: {
-    color: PRIMARY_COLOR,
-  },
-
   content: {
     flexDirection: 'row',
     alignItems: 'center',

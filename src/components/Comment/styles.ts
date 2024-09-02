@@ -44,6 +44,10 @@ export default StyleSheet.create({
     minHeight: scale(20),
   },
 
+  replyContainer: {
+    marginVertical: scale(4),
+  },
+
   footer: {
     flexDirection: 'row',
     alignItems: 'center',
