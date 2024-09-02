@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { getComments, getTotalCommentsCount } from '../../db/comments';
+import { getAllCommentReplies, getComments, getTotalCommentsCount } from '../../db/comments';
 import { CommentParsed } from '../../db/comments/types';
 
 export default function useData() {
@@ -9,6 +9,21 @@ export default function useData() {
   const [comments, setComments] = useState<CommentParsed[]>([]);
 
   const isNextPageExists = page + 1 < totalPages;
+
+  const getCommentReplies = async (id: CommentParsed['id']) => {
+    const replies = await getAllCommentReplies(id);
+
+    setComments(state => {
+      const commentIndex = state.findIndex(comment => comment.id === id);
+      const comment = { ...state[commentIndex], replies };
+
+      const newState = [...state];
+
+      newState.splice(commentIndex, 1, comment);
+
+      return newState;
+    });
+  };
 
   const requestNextPage = useCallback(async () => {
     const nextPage = page + 1;
@@ -37,5 +52,5 @@ export default function useData() {
     requestComments();
   }, []);
 
-  return { comments, isNextPageExists, requestNextPage, setComments };
+  return { comments, isNextPageExists, getCommentReplies, requestNextPage, setComments };
 }

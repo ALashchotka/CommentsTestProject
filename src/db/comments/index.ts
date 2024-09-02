@@ -47,31 +47,20 @@ export const getTotalCommentsCount = async (): Promise<number> => {
   }
 };
 
-export const getCommentById = async (id: CommentFromDB['id']): Promise<CommentParsed> => {
+export const getAllCommentReplies = async (id: CommentFromDB['id']): Promise<CommentParsed[]> => {
   try {
     const db = await connectToDatabase();
 
     const query = `
       SELECT
         c.*,
-        u.username,
-        r.id AS r_id,
-        r.text AS r_text,
-        r.date AS r_date,
-        r.userId AS r_userId,
-        r.repliesCount AS r_repliesCount,
-        r.rootId AS r_rootId,
-        r.parentId AS r_parentId
+        u.username
       FROM
         Comments c
       JOIN
         Users u ON c.userId = u.id
-      LEFT JOIN
-        Comments r ON r.rootId = c.id
       WHERE
-        c.id = ?
-      GROUP BY
-        c.id
+        c.rootId = ?
       ORDER BY
         c.id
     `;
@@ -80,8 +69,48 @@ export const getCommentById = async (id: CommentFromDB['id']): Promise<CommentPa
 
     const data = await db.executeSql(query, values);
 
+    const comments: CommentParsed[] = [];
+
+    data.forEach(({ rows }) => {
+      for (let index = 0; index < rows.length; index++) {
+        const comment = rows.item(index);
+        const parsedComment = parseComment(comment);
+
+        comments.push(parsedComment);
+      }
+    });
+
+    return comments;
+  } catch (error) {
+    console.error(error);
+    throw Error('Failed to get comment by id from database (Comments table)');
+  }
+};
+
+export const getCommentById = async (id: CommentFromDB['id']): Promise<CommentParsed> => {
+  try {
+    const db = await connectToDatabase();
+
+    const query = `
+      SELECT
+        c.*,
+        u.username
+      FROM
+        Comments c
+      JOIN
+        Users u ON c.userId = u.id
+      WHERE
+        c.id = ?;
+    `;
+
+    const values = [id];
+
+    const data = await db.executeSql(query, values);
+
     const comment = data[0].rows.item(0);
     const parsedComment = parseComment(comment);
+
+    parsedComment.replies = await getAllCommentReplies(id);
 
     return parsedComment;
   } catch (error) {

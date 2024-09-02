@@ -9,14 +9,9 @@ import Avatar from '../Avatar';
 import Reply from '../Reply';
 
 import styles from './styles';
+import { CommentProps } from './types';
 
-export default function Comment({
-  data,
-  onReply,
-}: {
-  data: CommentParsed;
-  onReply: (comment: CommentParsed) => void;
-}): React.JSX.Element {
+export default function Comment({ data, getCommentReplies, onReply }: CommentProps): React.JSX.Element {
   const renderReplies = (item: CommentParsed) => {
     const hasReplies = !!item.replies?.length;
 
@@ -24,7 +19,7 @@ export default function Comment({
       return null;
     }
 
-    const showReplies = data.repliesCount - data.replies.length > 0;
+    const showReplies = data.repliesCount - data.replies.length > 0 && !!getCommentReplies;
 
     return (
       <View style={styles.repliesContainer}>
@@ -34,7 +29,7 @@ export default function Comment({
           <TouchableOpacity
             activeOpacity={0.6}
             style={styles.viewRepliesContainer}
-            onPress={() => {}}
+            onPress={() => getCommentReplies(data.id)}
             hitSlop={HIT_SLOP}
           >
             <View style={styles.viewRepliesLine} />

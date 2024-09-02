@@ -22,7 +22,7 @@ import styles from './styles';
 import useComments from './useComments';
 
 export default function Main({ route }: MainScreenProps) {
-  const { comments, isNextPageExists, requestNextPage, setComments } = useComments();
+  const { comments, isNextPageExists, getCommentReplies, requestNextPage, setComments } = useComments();
 
   const userData = route.params.userData;
 
@@ -64,6 +64,7 @@ export default function Main({ route }: MainScreenProps) {
     <Comment
       key={`comment_${item.id}`}
       data={item}
+      getCommentReplies={getCommentReplies}
       onReply={onReply}
     />
   );
