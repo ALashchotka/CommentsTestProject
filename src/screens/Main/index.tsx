@@ -1,14 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  NativeScrollEvent,
-  ScrollView,
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Keyboard, KeyboardAvoidingView, NativeScrollEvent, ScrollView, StatusBar, View } from 'react-native';
 
 import { Comment } from '../../components';
 import { createComment } from '../../db/comments';
@@ -17,6 +8,7 @@ import { MainScreenProps } from '../../navigation/routes';
 
 import Header from './Header';
 import Input from './Input';
+import LoadNextPageButton from './LoadNextPageButton';
 
 import styles from './styles';
 import useComments from './useComments';
@@ -112,11 +104,10 @@ export default function Main({ route }: MainScreenProps) {
         >
           {comments.map(renderComment)}
 
-          {isNextPageExists && (
-            <TouchableOpacity onPress={requestNextPage}>
-              <Text>View more comments</Text>
-            </TouchableOpacity>
-          )}
+          <LoadNextPageButton
+            isNextPageExists={isNextPageExists}
+            onPress={requestNextPage}
+          />
         </ScrollView>
 
         <Input
