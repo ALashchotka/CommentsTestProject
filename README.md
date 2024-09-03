@@ -17,17 +17,29 @@ Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _roo
 ### For Android
 
 ```bash
-# OR using Yarn
 yarn android
 ```
 
 ### For iOS
 
 ```bash
-# OR using Yarn
 yarn ios
 ```
 
 If everything is set up _correctly_, you should see app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+
+## Step 3: Create builds
+
+This section will outline the methods for building applications for testing on both Android and iOS platforms.
+
+### Android APK
+
+This script enables the creation of an APK file for deployment on Android devices.
+
+```bash
+yarn android-apk
+```
+
+The file can be found at `android/app/build/outputs/apk/release/app-release.apk`.
