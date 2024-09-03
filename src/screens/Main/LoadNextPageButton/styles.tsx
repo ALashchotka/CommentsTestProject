@@ -7,6 +7,7 @@ export default StyleSheet.create({
   container: {
     alignItems: 'center',
     alignSelf: 'center',
+    marginVertical: scale(4),
     paddingVertical: scale(12),
     paddingHorizontal: scale(48),
 
