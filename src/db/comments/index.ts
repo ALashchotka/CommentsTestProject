@@ -139,17 +139,21 @@ export const getComments = async (page: number): Promise<CommentParsed[]> => {
       JOIN
         Users u ON c.userId = u.id
       LEFT JOIN
-        Comments r ON r.rootId = c.id
+        Comments r ON r.id = (
+            SELECT MIN(r2.id)
+            FROM Comments r2
+            WHERE r2.rootId = c.id
+        )
       WHERE
         c.rootId IS NULL
       GROUP BY
         c.id
       ORDER BY
         c.id
-      LIMIT 1 OFFSET (?);
+      LIMIT 25 OFFSET (?);
     `;
 
-    const values = [page * 1];
+    const values = [page * 25];
 
     const data = await db.executeSql(query, values);
 
