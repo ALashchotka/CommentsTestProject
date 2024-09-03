@@ -9,7 +9,7 @@ import { MAIN_SCREEN_NAME, REGISTRATION_SCREEN_NAME, RootStackParamList } from '
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export default function Navigation() {
+export default function Navigation(): React.JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ gestureEnabled: false, headerShown: false }}>

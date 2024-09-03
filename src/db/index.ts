@@ -1,4 +1,4 @@
-import SQLite from 'react-native-sqlite-storage';
+import SQLite, { SQLiteDatabase } from 'react-native-sqlite-storage';
 
 import { createTable as createCommentsTable } from './comments';
 import { createTable as createUsersTable } from './users';
@@ -6,7 +6,7 @@ import { createTable as createUsersTable } from './users';
 SQLite.enablePromise(true);
 SQLite.DEBUG(true);
 
-export const initializeDatabase = async () => {
+export const initializeDatabase = async (): Promise<void> => {
   try {
     await createCommentsTable();
     await createUsersTable();
@@ -16,7 +16,7 @@ export const initializeDatabase = async () => {
   }
 };
 
-export const connectToDatabase = async () => {
+export const connectToDatabase = async (): Promise<SQLiteDatabase> => {
   return SQLite.openDatabase(
     { name: 'CommentsTestProject.db', location: 'default' },
     () => {},

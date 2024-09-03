@@ -49,6 +49,8 @@ export default function Registration({ navigation }: RegistrationScreenProps): R
         return;
       }
 
+      setErrorField(null);
+
       const userData = await createUser(email, username);
 
       navigation.navigate(MAIN_SCREEN_NAME, { userData });

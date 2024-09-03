@@ -1,7 +1,7 @@
 import * as UsersDB from '../../db/users';
 import { User } from '../../db/users/types';
 
-export const createUser = async (email: User['email'], username: User['username']) => {
+export const createUser = async (email: User['email'], username: User['username']): Promise<User> => {
   try {
     const [userByEmail, userByUsername] = await Promise.all([
       UsersDB.getUserByEmail(email),
