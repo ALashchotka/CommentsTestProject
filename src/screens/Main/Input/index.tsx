@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, TextInput, TouchableOpacity, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { Avatar, Reply } from '../../../components';
@@ -23,8 +23,14 @@ export default function Input({
 
   const [text, setText] = useState<CommentParsed['text']>('');
 
-  const onPress = async () => {
+  const onPress = async (): Promise<void> => {
     try {
+      if (!text) {
+        Alert.alert('Error', 'Comment cannot be empty.');
+
+        return;
+      }
+
       setLoading(true);
 
       await onSend(text);

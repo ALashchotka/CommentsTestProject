@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 import { PRIMARY_COLOR } from '../../../constants/styles';
 import { scale } from '../../../utils/scaling';
@@ -26,7 +26,7 @@ export default StyleSheet.create({
     borderColor: '#EAEAEA',
     borderRadius: scale(24),
     borderWidth: 1,
-    paddingVertical: scale(16),
+    paddingVertical: Platform.OS === 'ios' ? scale(16) : 0,
     paddingLeft: scale(16),
     paddingRight: scale(48),
     minHeight: scale(48),
