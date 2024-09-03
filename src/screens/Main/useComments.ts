@@ -4,13 +4,13 @@ import { getAllCommentReplies, getComments, getTotalCommentsCount } from '../../
 import { CommentParsed } from '../../db/comments/types';
 
 export default function useData() {
-  const [page, setPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
+  const [page, setPage] = useState<number>(0);
+  const [totalPages, setTotalPages] = useState<number>(0);
   const [comments, setComments] = useState<CommentParsed[]>([]);
 
   const isNextPageExists = page + 1 < totalPages;
 
-  const getCommentReplies = async (id: CommentParsed['id']) => {
+  const getCommentReplies = async (id: CommentParsed['id']): Promise<void> => {
     const replies = await getAllCommentReplies(id);
 
     setComments(state => {
@@ -25,7 +25,7 @@ export default function useData() {
     });
   };
 
-  const requestNextPage = useCallback(async () => {
+  const requestNextPage = useCallback(async (): Promise<void> => {
     const nextPage = page + 1;
     const data = await getComments(nextPage);
 
@@ -36,13 +36,13 @@ export default function useData() {
   }, [page]);
 
   useEffect(() => {
-    const requestTotalPages = async () => {
+    const requestTotalPages = async (): Promise<void> => {
       const data = await getTotalCommentsCount();
 
-      setTotalPages(data);
+      setTotalPages(Math.ceil(data / 25));
     };
 
-    const requestComments = async () => {
+    const requestComments = async (): Promise<void> => {
       const data = await getComments(0);
 
       setComments(data);
