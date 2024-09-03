@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "android-apk": "yarn build-aos && cd ./android && ./gradlew app:assembleRelease && cd ..",
+    "build-aos": "mkdir -p android/app/src/main/assets && react-native bundle --reset-cache --entry-file='index.js' --bundle-output='android/app/src/main/assets/index.android.bundle' --dev=false --platform='android'",
     "ios": "rm -rf ./ios/.xcode.env.local && react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
