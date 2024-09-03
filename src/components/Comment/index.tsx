@@ -12,7 +12,7 @@ import styles from './styles';
 import { CommentProps } from './types';
 
 export default function Comment({ data, getCommentReplies, onReply }: CommentProps): React.JSX.Element {
-  const renderReplies = (item: CommentParsed) => {
+  const renderReplies = (item: CommentParsed): React.JSX.Element | null => {
     const hasReplies = !!item.replies?.length;
 
     if (!hasReplies) {
@@ -40,7 +40,7 @@ export default function Comment({ data, getCommentReplies, onReply }: CommentPro
     );
   };
 
-  const renderComment = (item: CommentParsed, isReply: boolean) => {
+  const renderComment = (item: CommentParsed, isReply: boolean): React.JSX.Element => {
     const replyText =
       item.parentId === item.rootId ? data.text : data.replies.find(reply => reply.id === item.parentId)?.text;
 

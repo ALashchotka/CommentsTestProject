@@ -13,7 +13,7 @@ import LoadNextPageButton from './LoadNextPageButton';
 import styles from './styles';
 import useComments from './useComments';
 
-export default function Main({ route }: MainScreenProps) {
+export default function Main({ route }: MainScreenProps): React.JSX.Element {
   const { comments, isNextPageExists, getCommentReplies, requestNextPage, setComments } = useComments();
 
   const userData = route.params.userData;
@@ -25,15 +25,15 @@ export default function Main({ route }: MainScreenProps) {
 
   const removeCommentForReply = () => setCommentForReply(undefined);
 
-  const onScrollEnd = ({ nativeEvent }: { nativeEvent: NativeScrollEvent }) => {
+  const onScrollEnd = ({ nativeEvent }: { nativeEvent: NativeScrollEvent }): void => {
     currentScrollPosition.current = nativeEvent.contentOffset.y;
   };
 
-  const onReply = (comment: CommentParsed) => {
+  const onReply = (comment: CommentParsed): void => {
     setCommentForReply(comment);
   };
 
-  const onSend = async (text: CommentParsed['text']) => {
+  const onSend = async (text: CommentParsed['text']): Promise<void> => {
     const comment = await createComment(text, userData.id, commentForReply);
 
     setComments(state => {
@@ -52,7 +52,7 @@ export default function Main({ route }: MainScreenProps) {
     removeCommentForReply();
   };
 
-  const renderComment = (item: CommentParsed) => (
+  const renderComment = (item: CommentParsed): React.JSX.Element => (
     <Comment
       key={`comment_${item.id}`}
       data={item}

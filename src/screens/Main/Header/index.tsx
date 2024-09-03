@@ -12,7 +12,7 @@ import styles from './styles';
 export default function Header(): React.JSX.Element {
   const navigation = useNavigation();
 
-  const onLogout = () => {
+  const onLogout = (): void => {
     navigation.goBack();
   };
 
