@@ -4,7 +4,7 @@ import { createTable as createCommentsTable } from './comments';
 import { createTable as createUsersTable } from './users';
 
 SQLite.enablePromise(true);
-SQLite.DEBUG(true);
+SQLite.DEBUG(__DEV__);
 
 export const initializeDatabase = async (): Promise<void> => {
   try {
