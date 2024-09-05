@@ -87,7 +87,7 @@ export default function Registration({ navigation }: RegistrationScreenProps): R
       >
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Sign Up</Text>
-          <Text style={styles.subtitle}>Sign Up to leave few nasty comments and discuss some real gangsta shit.</Text>
+          <Text style={styles.subtitle}>Register to leave comments and participate in discussions!</Text>
         </View>
 
         <View style={styles.contentContainer}>
